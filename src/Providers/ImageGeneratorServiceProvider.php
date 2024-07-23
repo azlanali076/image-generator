@@ -8,7 +8,7 @@ use Illuminate\Support\ServiceProvider;
 class ImageGeneratorServiceProvider extends ServiceProvider {
 
     public function register(){
-        $this->app->bind('image-generator', function($app) {
+        $this->app->singleton('image-generator', function($app) {
             return new ImageGenerator();
         });
         $this->mergeConfigFrom(__DIR__.'/../../config/image-generator.php','imagegenerator');
