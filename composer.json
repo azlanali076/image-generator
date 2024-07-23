@@ -1,7 +1,7 @@
 {
     "name": "azlanali076/image-generator",
     "description": "A Laravel package for generating images using the OpenAI API. This package provides an easy-to-use interface for interacting with the OpenAI API to generate images based on text prompts.",
-    "version": "1.0",
+    "version": "1.0.1",
     "type": "library",
     "license": "MIT",
     "autoload": {
