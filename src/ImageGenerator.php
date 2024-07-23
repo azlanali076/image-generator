@@ -54,7 +54,7 @@ class ImageGenerator {
             $result = json_decode($response->getBody(),true);
             return [
                 'success' => true,
-                'data' => $result
+                'data' => $result['data']
             ];
         }
         catch (ClientException $e) {
