@@ -6,15 +6,18 @@ use Illuminate\Support\Facades\Facade;
 
 
 /**
- * @property-read string QUALITY_STANDARD
- * @property-read string QUALITY_HD
- * @property-read string RESPONSE_FORMAT_URL
- * @property-read string RESPONSE_FORMAT_BASE64
- * @property-read string STYLE_NATURAL
- * @property-read string STYLE_VIVID
- * @method static array generate(string $prompt, int $width = 1024, int $height = 1024, string $quality = 'standard', string $style = 'vivid', string $responseFormat = 'url')
+ * @method static array generate(string $prompt, ?int $width = 1024, ?int $height = 1024, ?string $quality = 'standard', ?string $style = 'vivid', ?string $responseFormat = 'url')
  */
 class ImageGenerator extends Facade {
+
+    public const QUALITY_STANDARD = "standard";
+    public const QUALITY_HD = 'hd';
+
+    public const RESPONSE_FORMAT_URL = 'url';
+    public const RESPONSE_FORMAT_BASE64 = 'b64_json';
+
+    public const STYLE_NATURAL = 'natural';
+    public const STYLE_VIVID = 'vivid';
 
     protected static function getFacadeAccessor()
     {

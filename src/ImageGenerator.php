@@ -6,15 +6,6 @@ use GuzzleHttp\Client;
 
 class ImageGenerator {
 
-    public const QUALITY_STANDARD = "standard";
-    public const QUALITY_HD = 'hd';
-
-    public const RESPONSE_FORMAT_URL = 'url';
-    public const RESPONSE_FORMAT_BASE64 = 'b64_json';
-
-    public const STYLE_NATURAL = 'natural';
-    public const STYLE_VIVID = 'vivid';
-
     private array $headers;
     private Client $client;
 
@@ -41,8 +32,8 @@ class ImageGenerator {
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function generate(
-        string $prompt, ?int $width = 1024, ?int $height = 1024, ?string $quality = self::QUALITY_STANDARD,
-        ?string $style = self::STYLE_VIVID, ?string $responseFormat = self::RESPONSE_FORMAT_URL
+        string $prompt, ?int $width = 1024, ?int $height = 1024, ?string $quality = 'standard',
+        ?string $style = 'vivid', ?string $responseFormat = 'url'
     ): array
     {
         $size = $width.'x'.$height;
