@@ -3,6 +3,8 @@
 namespace Azlanali076\ImageGenerator;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use GuzzleHttp\Exception\GuzzleException;
 
 class ImageGenerator {
 
@@ -29,27 +31,46 @@ class ImageGenerator {
      * @param string|null $style
      * @param string|null $responseFormat
      * @return array
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function generate(
         string $prompt, ?int $width = 1024, ?int $height = 1024, ?string $quality = 'standard',
         ?string $style = 'vivid', ?string $responseFormat = 'url'
     ): array
     {
-        $size = $width.'x'.$height;
-        $response = $this->client->post('/v1/images/generations',[
-            'headers' => $this->headers,
-            'body' => json_encode([
-                'model' => 'dall-e-3',
-                'prompt' => $prompt,
-                'size' => $size,
-                'n' => 1,
-                'quality' => $quality,
-                'style' => $style,
-                'response_format' => $responseFormat
-            ])
-        ]);
-        return json_decode($response->getBody(),true);
+        try{
+            $size = ($width ?? 1024).'x'.($height ?? 1024);
+            $response = $this->client->post('/v1/images/generations',[
+                'headers' => $this->headers,
+                'body' => json_encode([
+                    'model' => 'dall-e-3',
+                    'prompt' => $prompt,
+                    'size' => $size,
+                    'n' => 1,
+                    'quality' => $quality ?? 'standard',
+                    'style' => $style ?? 'vivid',
+                    'response_format' => $responseFormat ?? 'url'
+                ])
+            ]);
+            $result = json_decode($response->getBody(),true);
+            return [
+                'success' => true,
+                'data' => $result
+            ];
+        }
+        catch (ClientException $e) {
+            $response = json_decode($e->getResponse()->getBody(),true);
+            return [
+                'success' => false,
+                'message' => $response['error']['message'],
+                'code' => $response['error']['code']
+            ];
+        }
+        catch (GuzzleException|\Exception $e) {
+            return [
+                'success' =>false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
 
 }
