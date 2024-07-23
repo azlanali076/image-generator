@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Facade;
 
 
 /**
- * @method static array generate(string $prompt, int|null $width, int|null $height, string|null $quality, string|null $style, string|null $responseFormat)
+ * @method static array generate(string $prompt, int|null $width = 1024, int|null $height = 1024, string|null $quality = 'standard', string|null $style = 'vivid', string|null $responseFormat = 'url')
  */
 class ImageGenerator extends Facade {
 
